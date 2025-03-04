@@ -1,0 +1,12 @@
+#!/bin/sh
+#synergia_workflow_submitter:/bin/sh
+# 12 threads on leptop
+# reserve 4 for other uses
+
+numthreads=$((8 / @@numproc@@ ))
+cd @@jobdir@@ && \
+(OMP_PROC_BIND=spread OMP_PLACES=cores OMP_NUM_THREADS=${numthreads} time python @@script@@ @@args@@  2> synergia.err | tee synergia.out
+
+echo "synergia finished with exit status $?")
+
+
